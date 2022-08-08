@@ -16,6 +16,7 @@ ede-projects.el
 
 eshell/
 games/
+irony/
 
 # Graphene's geometry details
 .graphene-geometry

@@ -1,10 +1,23 @@
 (setq inhibit-startup-message t)
 (set-fringe-mode 10)
 (tool-bar-mode 0)
+(scroll-bar-mode 0)
 (column-number-mode t)
 (display-time-mode t)
 (global-display-line-numbers-mode t)
 (global-hl-line-mode t)
+
+
+;; backup to a different location
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.emacs.d/saves/"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
+
 
 (dolist (mode '(org-mode-hook
 		term-mode-hook
@@ -75,5 +88,31 @@
 
 ;; theme setup
 (use-package doom-themes
-  :init(load-theme 'doom-ayu-mirage t))
+  :init(load-theme 'doom-tomorrow-night t))
 
+(use-package company
+  :hook((prog-mode . company-mode)))
+
+(use-package company-irony
+  :after company
+  :config(add-to-list 'company-backends 'company-irony)
+  :hook(cc-mode . irony-mode))
+
+(require 'cc-mode)
+(setq-default c-default-style "linux")
+(setq-default c-basic-offset 4)
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(company which-key use-package ivy-rich doom-themes doom-modeline diminish counsel all-the-icons)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
