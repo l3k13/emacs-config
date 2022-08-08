@@ -39,9 +39,19 @@
 ;; ivy setup
 (use-package ivy
   :diminish
-  :bind (
-	 :map ivy-minibuffer-map ("TAB" . ivy-alt-done))
-  :init (ivy-mode t))
+  :bind (("C-s" . swiper)
+	 :map ivy-minibuffer-map
+	 ("TAB" . ivy-alt-done))
+  :init (ivy-mode 1))
+(use-package counsel
+  :bind (("C-x b" . counsel-ibuffer)
+	 ("C-x C-b" . counsel-ibuffer)
+	 ("C-x C-f" . counsel-find-file))
+  :init(counsel-mode))
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1))
+
 
 ;; modeline from doom-emacs
 (use-package all-the-icons
@@ -58,10 +68,12 @@
 
 ;; which-key setup
 (use-package which-key
-  :init(which-key-mode t))
+  :init(which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 1))
 
 ;; theme setup
 (use-package doom-themes
   :init(load-theme 'doom-ayu-mirage t))
-
 
