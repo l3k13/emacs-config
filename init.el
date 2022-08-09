@@ -7,6 +7,9 @@
 (global-display-line-numbers-mode t)
 (global-hl-line-mode t)
 
+;; mac stuffs
+(setq mac-option-key-is-meta t)
+(setq mac-right-option-modifier nil)
 
 ;; backup to a different location
 (setq
@@ -24,6 +27,14 @@
 		shell-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda() (display-line-numbers-mode 0))))
+
+;; Scroll smoothly
+(setq scroll-conservatively 100)
+
+;; y or n
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+
 
 ;; use esc to quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -91,7 +102,10 @@
   :init(load-theme 'doom-tomorrow-night t))
 
 (use-package company
-  :hook((prog-mode . company-mode)))
+  :hook((prog-mode . company-mode))
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 3))
 
 (use-package company-irony
   :after company
@@ -102,6 +116,8 @@
 (setq-default c-default-style "linux")
 (setq-default c-basic-offset 4)
 
+(add-hook 'prog-mode-hook (lambda() (electric-pair-mode t)))
+(setq electric-pair-preserve-balance nil)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
